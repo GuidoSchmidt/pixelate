@@ -14,8 +14,8 @@
 
 // Options
 String filepath = "img/";
-String imgName = "eames.jpg";
-int pixelCount = 10;
+String imgName = "html.jpg";
+int pixelCount = 45;
 int margin = 0;
 
 // Globals
@@ -25,11 +25,13 @@ void setup() {
   img = loadImage(filepath + '/' +  imgName);
   noLoop();
   background(65, 65, 65);
-  size((img.width/2)*2+60, (img.height/2)+40);
+  float resizeFactor = 400.0/img.width;
+  println(resizeFactor);
+  size(400 * 2 + 60, int(img.height * resizeFactor));
 } 
 
 void draw() {
-  image(img, 20, 20, img.width/2, img.height/2);
+  image(img, 20, 20, width/2 - 30, height - 40);
   img.loadPixels();
   println("Image dimension: " + img.width + " x " + img.height);
 
@@ -93,7 +95,7 @@ void draw() {
   }
 
   outImg.updatePixels();
-  image(outImg, width/2 + 10 + borderX/4, 20 + borderY/4, img.width/2, img.height/2); // Draw the new image
+  image(outImg, width/2 + 10 + borderX/4, 20 + borderY/4, width/2 - 30, height - 40); // Draw the new image
   outImg.save(filepath + "/pixelated_" + imgName);
 }
 
