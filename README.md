@@ -4,3 +4,4 @@ Small [processing](http://www.processing.org) program for pixelating images. I o
 
 ![Mona Lisa Example](./screenshots/screen-mona.png)
 ![Eames Chair Example](./screenshots/screen-eames.png)
+![HTML Code Example](./screenshots/screen-html.png)

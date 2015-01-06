@@ -14,8 +14,8 @@
 
 // Options
 String filepath = "img/";
-String imgName = "mona.jpg";
-int pixelCount = 35;
+String imgName = "eames.jpg";
+int pixelCount = 10;
 int margin = 0;
 
 // Globals
@@ -31,6 +31,7 @@ void setup() {
 void draw() {
   image(img, 20, 20, img.width/2, img.height/2);
   img.loadPixels();
+  println("Image dimension: " + img.width + " x " + img.height);
 
   if(pixelCount >= img.width || pixelCount >= img.height) {
     println("ERROR: pixelCount should be smaller than the image dimension!");
@@ -38,20 +39,18 @@ void draw() {
   }
 
   int step = img.width/pixelCount;
-  println("Stepsize is " + step);
-  int border = 0;
-  if(img.width > img.height)
-    border = img.width % step;
-  else
-    border = img.height % step;
-  println("Border size is " + border);
+  println("Stepsize: " + step);
+  int borderX = 0, borderY = 0;
+  borderX = img.width % step;
+  borderY = img.height % step;
+  println("Bordersize: " + borderX + " | " + borderY);
 
   int divisor = (step*step);
   float[] colorArray = new float[3];
   PImage outImg = createImage(img.width, img.height, RGB);
 
-  for (int y = 0; y < img.height-1-step; y+=step) {
-    for (int x = 0; x < img.width-1-step; x+=step) {
+  for (int y = 0; y < img.height-1-borderY; y+=step) {
+    for (int x = 0; x < img.width-1-borderX; x+=step) {
       int pos = y * img.width + x;
       int sumR = 0, sumG = 0, sumB = 0;
 
@@ -94,7 +93,7 @@ void draw() {
   }
 
   outImg.updatePixels();
-  image(outImg, width/2 +10, 20, img.width/2, img.height/2); // Draw the new image
+  image(outImg, width/2 + 10 + borderX/4, 20 + borderY/4, img.width/2, img.height/2); // Draw the new image
   outImg.save(filepath + "/pixelated_" + imgName);
 }
 
